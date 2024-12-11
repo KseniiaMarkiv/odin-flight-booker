@@ -1,0 +1,17 @@
+<h1>Search Flights</h1>
+
+<%= form_with url: root_path, method: :get, local: true do |form| %>
+  <%= form.label :departure_airport, "Departure Airport" %>
+  <%= form.collection_select :departure_airport_id, @airports, :id, :code %>
+
+  <%= form.label :arrival_airport, "Arrival Airport" %>
+  <%= form.collection_select :arrival_airport_id, @airports, :id, :code %>
+
+  <%= form.label :passengers, "Number of Passengers" %>
+  <%= form.select :passengers, (1..4).to_a, include_blank: true %>
+
+  <%= form.label :flight_date, "Date" %>
+  <%= select_date(nil, prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, field_name: 'date', start_year: Date.today.year, end_year: Date.today.year + 5) %>
+
+  <%= form.submit "Search" %>
+<% end %>
