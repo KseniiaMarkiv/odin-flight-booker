@@ -11,7 +11,7 @@
   <%= form.select :passengers, (1..4).to_a, include_blank: true %>
 
   <%= form.label :flight_date, "Date" %>
-  <%= select_date(nil, prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, field_name: 'date', start_year: Date.today.year, end_year: Date.today.year + 5) %>
+  <%= form.select :date, options_for_select(@available_dates, @selected_date), include_blank: true, prompt: { day: 'Select day', month: 'Select month', year: 'Select year' } %>
 
   <%= form.submit "Search" %>
 <% end %>
