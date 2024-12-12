@@ -1,0 +1,9 @@
+.three-columns-container {
+  height: 150px;
+}
+.three-columns-container > .row {
+  height: 30%;
+}
+.three-columns-container  > .row > .col {
+  height: 100%;
+}
