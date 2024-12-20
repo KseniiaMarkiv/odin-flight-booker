@@ -52,3 +52,10 @@ $utilities: map-merge(
 
 // Import Bootstrap's utility API to generate classes
 @import "bootstrap/utilities/api";
+
+.form-select {
+  color: rgb(169, 169, 169);
+  option {
+    color: var(--bs-body-color);
+  }
+}

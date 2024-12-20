@@ -8,26 +8,26 @@
         <%= form_with url: root_path, method: :get, local: true, class: "row g-3 align-items-lg-end align-items-sm-center justify-content-between flex-lg-row flex-sm-column" do |form| %>
           <!-- Departure Airport -->
           <div class="col-12 col-md-12 col-lg-2">
-            <%= form.label :departure_airport, "From", class: "form-label" %>
-            <%= form.collection_select :departure_airport_id, @airports, :id, :code, {}, class: "form-select" %>
+            <%= form.label :departure_airport, "From", class: "form-label", for: "departure_airport_id" %>
+            <%= form.collection_select :departure_airport_id, @airports, :id, :code, { prompt: "Select Departure Airport" }, class: "form-select", id: "departure_airport_id" %>
           </div>
 
           <!-- Arrival Airport -->
           <div class="col-12 col-md-12 col-lg-2">
-            <%= form.label :arrival_airport, "To", class: "form-label" %>
-            <%= form.collection_select :arrival_airport_id, @airports, :id, :code, {}, class: "form-select" %>
+            <%= form.label :arrival_airport, "To", class: "form-label", for: "arrival_airport_id" %>
+            <%= form.collection_select :arrival_airport_id, @airports, :id, :code, { prompt: "Select Arrival Airport" }, class: "form-select", id: "arrival_airport_id" %>
           </div>
 
           <!-- Date Selection -->
           <div id="htmlTarget" class="col-12 col-md-12 col-lg-3">
-            <%= form.label :flight_date, "Departure", class: "form-label" %>
-            <%= form.select :date, options_for_select(@available_dates, @selected_date), { include_blank: true }, class: "form-select" %>
-          </div>
+            <%= form.label :flight_date, "Departure", class: "form-label", for: "flight_date" %>
+            <%= form.date_field :date, value: @selected_date, class: "form-control", min: @available_dates.min, max: @available_dates.max, id: "flight_date" %>
+          </div> 
 
           <!-- Passengers -->
           <div class="col-12 col-md-12 col-lg-3">
-            <%= form.label :passengers, "Cabin class and passengers", class: "form-label" %>
-            <%= form.select :passengers, (1..4).to_a, { include_blank: true }, class: "form-select" %>
+            <%= form.label :passengers, "Passengers", class: "form-label", for: "passengers" %>
+            <%= form.select :passengers, (1..4).to_a, { prompt: "Select Number of Passengers" }, class: "form-select", id: "passengers" %>
           </div>
 
           <!-- Submit Button -->
@@ -38,9 +38,29 @@
       </div>
     </div>
   </div>
+
+  <div class="row my-3">
+    <% if @flights.any? %>
+      <% @flights.each do |flight| %>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= flight.departure_airport.code %> → <%= flight.arrival_airport.code %>
+              </h5>
+              <p><strong>Start Time:</strong> <%= flight.start_time.strftime('%Y-%m-%d %H:%M') %></p>
+              <p>
+                <i class="bi bi-stopwatch"></i> Duration: <%= flight.duration %> hours
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-12">
+        <p class="text-center my-3">No flights found for the selected criteria.</p>
+      </div>
+    <% end %>
+  </div>
+
 </div>
-
-
-<i class="bi bi-alarm"></i> Alarm Icon
-<i class="bi bi-heart-fill"></i> Heart Icon
-<i class="bi bi-0-circle-fill"></i>
