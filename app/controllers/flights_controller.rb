@@ -1,9 +1,5 @@
 class FlightsController < ApplicationController
   def index
-    # @available_dates = Flight.select(:start_time).pluck(:start_time).map(&:to_datetime)
-    # @selected_date = params[:date].present? ? params[:date].to_datetime : nil
-    # @flights = @selected_date ? Flight.available_on(@selected_date) : Flight.all
-
     # Retrieve all airports for the dropdowns
     @airports = Airport.all
 
