@@ -9,13 +9,13 @@
           <!-- Departure Airport -->
           <div class="col-12 col-md-12 col-lg-2">
             <%= form.label :departure_airport, "From", class: "form-label", for: "departure_airport_id" %>
-            <%= form.collection_select :departure_airport_id, @airports, :id, :code, { prompt: "Select Departure Airport" }, class: "form-select", id: "departure_airport_id" %>
+            <%= form.select :departure_code, options_for_select(@airports.map { |a| [a.code, a.code] }, @departure_code), { prompt: "Select Departure Airport" }, class: "form-select", id: "departure_airport_id" %>
           </div>
 
           <!-- Arrival Airport -->
           <div class="col-12 col-md-12 col-lg-2">
             <%= form.label :arrival_airport, "To", class: "form-label", for: "arrival_airport_id" %>
-            <%= form.collection_select :arrival_airport_id, @airports, :id, :code, { prompt: "Select Arrival Airport" }, class: "form-select", id: "arrival_airport_id" %>
+            <%= form.select :arrival_code, options_for_select(@airports.map { |a| [a.code, a.code] }, @arrival_code), { prompt: "Select Arrival Airport" }, class: "form-select", id: "arrival_airport_id" %>
           </div>
 
           <!-- Date Selection -->
