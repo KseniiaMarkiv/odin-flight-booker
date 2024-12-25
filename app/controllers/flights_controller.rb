@@ -24,4 +24,10 @@ class FlightsController < ApplicationController
     # For the date picker min/max values 
     @available_dates = Flight.select(:start_time).distinct.pluck(:start_time).map(&:to_datetime) 
   end 
+
+  def reset
+    flash[:notice] = "The reset was successful"
+    redirect_to root_path
+  end
+
 end 

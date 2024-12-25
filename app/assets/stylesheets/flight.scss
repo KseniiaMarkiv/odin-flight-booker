@@ -7,3 +7,14 @@
 .three-columns-container  > .row > .col {
   height: 100%;
 }
+
+.card-blue:hover {
+  border-color: #0d6efd;
+  color: #0d6efd;
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.flash-msgs {
+  height: 100px;
+}
