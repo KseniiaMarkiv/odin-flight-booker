@@ -1,0 +1,32 @@
+<h1 class="text-center py-4">Create a New Booking</h1>
+
+<div class="card shadow-sm my-4">
+  <div class="card-body">
+    <h3 class="card-title text-primary">
+      Flight Details
+    </h3>
+    <p><strong>From:</strong> <%= @flight.departure_airport.code %></p>
+    <p><strong>To:</strong> <%= @flight.arrival_airport.code %></p>
+    <p><strong>Departure Time:</strong> <%= @flight.start_time.strftime('%Y-%m-%d %H:%M') %></p>
+    <p><strong>Duration:</strong> <%= @flight.duration %> hours</p>
+  </div>
+</div>
+
+<div class="card shadow-sm my-4">
+  <div class="card-body">
+    <h3 class="card-title text-primary">
+      Passenger Information
+    </h3>
+    <p><strong>Number of Passengers:</strong> <%= @passengers %></p>
+  </div>
+</div>
+
+<%= form_with url: bookings_path, method: :post, local: true do |form| %>
+  <%= form.hidden_field :flight_id, value: @flight.id %>
+  <%= form.hidden_field :passengers, value: @passengers %>
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= form.submit "Confirm Booking", class: "btn btn-success px-4 py-2" %>
+  </div>
+<% end %>
+

@@ -51,28 +51,30 @@
     <% end %>
   </div>
 
-  <div class="row my-3">
-    <% if @flights.any? %>
-      <% @flights.each do |flight| %>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card mb-3 shadow-sm card-blue">
-            <div class="card-body">
-              <h5 class="card-title">
-                <%= flight.departure_airport.code %> → <%= flight.arrival_airport.code %>
-              </h5>
-              <p><strong>Start Time:</strong> <%= flight.start_time.strftime('%Y-%m-%d %H:%M') %></p>
-              <p>
-                <i class="bi bi-stopwatch fw-bold"></i> Duration: <%= flight.duration %> hours
-              </p>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <div class="col-12">
-        <p class="text-center my-3">No flights found for the selected criteria.</p>
-      </div>
-    <% end %>
-  </div>
+</div>
 
+<div class="row my-3">
+  <% if @flights.any? %>
+      <% @flights.each do |flight| %>
+        <div class="col-12 col-lg-4 col-md-6">
+          <%= link_to new_booking_path(flight_id: flight.id, passengers: params[:passengers]), class: "text-decoration-none" do %>
+            <div class="card mb-3 shadow-sm card-blue">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= flight.departure_airport.code %> → <%= flight.arrival_airport.code %>
+                </h5>
+                <p><strong>Start Time:</strong> <%= flight.start_time.strftime('%Y-%m-%d %H:%M') %></p>
+                <p>
+                  <i class="bi bi-stopwatch fw-bold"></i> Duration: <%= flight.duration %> hours
+                </p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+    <% end %>
+  <% else %>
+    <div class="col-12">
+      <p class="text-center my-3">No flights found for the selected criteria.</p>
+    </div>
+  <% end %>
 </div>
