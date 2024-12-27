@@ -3,9 +3,9 @@
   <h1>Search Flights</h1>
 
   <div class="row justify-content-center pt-4">
-    <div class="col">
+    <div class="col px-0">
       <div class="card shadow-sm p-3 bg-light">
-        <%= form_with url: root_path, method: :get, local: true, class: "row g-3 align-items-lg-end align-items-sm-center justify-content-between flex-lg-row flex-sm-column" do |form| %>
+        <%= form_with url: flights_path, method: :get, local: true, class: "row g-3 align-items-lg-end align-items-sm-center justify-content-between flex-lg-row flex-sm-column" do |form| %>
           <!-- Departure Airport -->
           <div class="col-12 col-md-12 col-lg-2">
             <%= form.label :departure_airport, "From", class: "form-label", for: "departure_airport_id" %>
@@ -42,10 +42,10 @@
   <!-- Reset Button -->
   <div class="mt-3 d-flex flex-row-reverse">
     <div class="ms-4">
-      <%= button_to "Reset", reset_flights_path, method: :get, data: { turbo_frame: "flights" }, class: "btn btn-secondary px-4 py-2 py-2 w-100" %>
+      <%= button_to "Reset", reset_flights_path, method: :get, class: "btn btn-secondary px-4 py-2 py-2 w-100" %>
     </div>
     <% flash.each do |key, message| %>
-      <div class="flash-message d-flex align-items-end text-success font-monospace" data-controller="flash">
+      <div class="flash-message d-flex align-items-end <%= key == 'notice' ? 'text-success' : 'text-danger' %> font-monospace" data-controller="flash">
         <%= message %>
       </div>
     <% end %>
