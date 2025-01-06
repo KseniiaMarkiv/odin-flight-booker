@@ -18,3 +18,11 @@
 .flash-msgs {
   height: 100px;
 }
+
+.hr-blurry {
+  border: none;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.9); /* Adjust color and transparency */
+  filter: blur(1px); /* Creates the blurry effect */
+  margin: 2rem 10rem; /* Optional: Adjust spacing */
+}

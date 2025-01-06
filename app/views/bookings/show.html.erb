@@ -1,0 +1,22 @@
+<h1 class="text-center py-4">New Booking</h1>
+
+<div class="card shadow-sm my-4">
+  <div class="card-body text-center py-5">
+    <h3 class="card-title text-primary text-center my-3"> Flight Details </h3>
+    <p><strong>From:</strong> <%= @booking.flight.departure_airport.code %></p>
+    <p><strong>To:</strong> <%= @booking.flight.arrival_airport.code %></p>
+    <p><strong>Departure Time:</strong> <%= @booking.flight.start_time.strftime('%Y-%m-%d %H:%M') %></p>
+    <p><strong>Duration:</strong> <%= @booking.flight.duration %> hours</p>
+    
+    <hr class="hr hr-blurry">
+
+    <h3 class="card-title text-primary text-center my-3">Passenger Information</h3>
+    <% @booking.passengers.each_with_index do |passenger, index| %>
+      <h4 class="my-4">Passenger <%= index + 1 %></h4>
+      <p><strong>Name:</strong> <%= passenger.name %><br>
+      <strong>Email:</strong> <%= passenger.email %></p>
+    <% end %>
+  </div>
+</div>
+
+

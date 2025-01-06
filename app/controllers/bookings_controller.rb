@@ -1,6 +1,10 @@
 class BookingsController < ApplicationController
   before_action :validate_search_params, only: [:new]
 
+  def show
+    @booking = Booking.find(params[:id])
+    @passengers = params[:passengers].to_i
+  end
   def new
     @flight = Flight.find(params[:flight_id])
     @booking = Booking.new(flight: @flight)
@@ -12,7 +16,7 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     if @booking.save
-      redirect_to root_path, notice: "Booking successfully created!"
+      redirect_to @booking, notice: "Booking successfully created!"
     else
       render :new, alert: "There was an error creating your booking. Please try again."
     end

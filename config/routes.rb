@@ -5,5 +5,5 @@ Rails.application.routes.draw do
       get :reset
     end
   end
-  resources :bookings, only: [:new, :create]
+  resources :bookings, only: [:show, :new, :create]
 end
