@@ -1,10 +1,8 @@
-<h1 class="text-center py-4">Create a New Booking</h1>
+<h1 class="text-center py-4">New Booking</h1>
 
 <div class="card shadow-sm my-4">
   <div class="card-body">
-    <h3 class="card-title text-primary">
-      Flight Details
-    </h3>
+    <h3 class="card-title text-primary text-center"> Flight Details </h3>
     <p><strong>From:</strong> <%= @flight.departure_airport.code %></p>
     <p><strong>To:</strong> <%= @flight.arrival_airport.code %></p>
     <p><strong>Departure Time:</strong> <%= @flight.start_time.strftime('%Y-%m-%d %H:%M') %></p>
@@ -14,18 +12,35 @@
 
 <div class="card shadow-sm my-4">
   <div class="card-body">
-    <h3 class="card-title text-primary">
-      Passenger Information
-    </h3>
-    <p><strong>Number of Passengers:</strong> <%= @passengers %></p>
+    <%= form_with model: @booking, local: true do |form| %>
+      <%= form.hidden_field :flight_id, value: @flight.id %>
+      <%= form.hidden_field :passengers, value: @passengers %>
+
+      <h3 class="card-title text-primary text-center">Passenger Information</h3>
+
+      <% @booking.passengers.each_with_index do |passenger, index| %>
+        <h4>Passenger <%= index + 1 %></h4>
+          <%= form.fields_for :passengers, passenger do |passenger_form| %>
+            <div class="mb-3 mt-5 row">
+              <%= passenger_form.label :name, "Name", class: "col-sm-2 col-form-label" %>
+              <div class="col-sm-10">
+                <%= passenger_form.text_field :name, class: "form-control" %>
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <%= passenger_form.label :email, "Email", class: "col-sm-2 col-form-label" %>
+              <div class="col-sm-10">
+                <%= passenger_form.email_field :email, class: "form-control" %>
+              </div>
+            </div>
+          <% end %>
+      <% end %>
+      
+      <div class="d-flex justify-content-center mt-4">
+        <%= form.submit "Confirm Booking", class: "btn btn-success px-4 py-2" %>
+      </div>
+    <% end %>
   </div>
 </div>
 
-<%= form_with url: bookings_path, method: :post, local: true do |form| %>
-  <%= form.hidden_field :flight_id, value: @flight.id %>
-  <%= form.hidden_field :passengers, value: @passengers %>
 
-  <div class="d-flex justify-content-center mt-4">
-    <%= form.submit "Confirm Booking", class: "btn btn-success px-4 py-2" %>
-  </div>
-<% end %>
