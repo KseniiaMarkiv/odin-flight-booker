@@ -2,35 +2,36 @@
 
 <div class="card shadow-sm my-4">
   <div class="card-body">
-    <h3 class="card-title text-primary text-center"> Flight Details </h3>
+    <h3 class="card-title text-primary text-center mt-3"> Flight Details </h3>
     <p><strong>From:</strong> <%= @flight.departure_airport.code %></p>
     <p><strong>To:</strong> <%= @flight.arrival_airport.code %></p>
     <p><strong>Departure Time:</strong> <%= @flight.start_time.strftime('%Y-%m-%d %H:%M') %></p>
     <p><strong>Duration:</strong> <%= @flight.duration %> hours</p>
+    <p><strong>Passengers:</strong> <%= @passengers %> </p>
   </div>
 </div>
 
 <div class="card shadow-sm my-4">
   <div class="card-body">
-    <%= form_with model: @booking, local: true do |form| %>
+    <%= form_with model: @booking, url: bookings_path, method: :post, local: true do |form| %>
       <%= form.hidden_field :flight_id, value: @flight.id %>
       <%= form.hidden_field :passengers, value: @passengers %>
 
-      <h3 class="card-title text-primary text-center">Passenger Information</h3>
+      <h3 class="card-title text-primary text-center mt-3">Passenger Information</h3>
 
       <% @booking.passengers.each_with_index do |passenger, index| %>
-        <h4>Passenger <%= index + 1 %></h4>
+        <h4 class="my-5">Passenger <%= index + 1 %></h4>
           <%= form.fields_for :passengers, passenger do |passenger_form| %>
-            <div class="mb-3 mt-5 row">
+            <div class="mb-3 row">
               <%= passenger_form.label :name, "Name", class: "col-sm-2 col-form-label" %>
               <div class="col-sm-10">
-                <%= passenger_form.text_field :name, class: "form-control" %>
+                <%= passenger_form.text_field :name, class: "form-control", required: true %>
               </div>
             </div>
             <div class="mb-3 row">
               <%= passenger_form.label :email, "Email", class: "col-sm-2 col-form-label" %>
               <div class="col-sm-10">
-                <%= passenger_form.email_field :email, class: "form-control" %>
+                <%= passenger_form.email_field :email, class: "form-control", required: true %>
               </div>
             </div>
           <% end %>

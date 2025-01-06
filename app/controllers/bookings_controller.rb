@@ -3,14 +3,19 @@ class BookingsController < ApplicationController
 
   def new
     @flight = Flight.find(params[:flight_id])
+    @booking = Booking.new(flight: @flight)
     @passengers = params[:passengers].to_i
-    @booking = Booking.new
+
     @passengers.times { @booking.passengers.build }
   end
 
   def create
     @booking = Booking.new(booking_params)
-    redirect_to root_path, notice: "Booking successfully created!" if @booking.save
+    if @booking.save
+      redirect_to root_path, notice: "Booking successfully created!"
+    else
+      render :new, alert: "There was an error creating your booking. Please try again."
+    end
   end
 
   private 
